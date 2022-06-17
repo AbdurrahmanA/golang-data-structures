@@ -2,8 +2,17 @@ package linked_list
 
 import "testing"
 
-func setup() *List {
+func emptyList() *List {
 	return &List{}
+}
+
+func fullList() *List {
+	node1 := &Node{Value: 1}
+	node2 := &Node{Value: 2}
+	node1.Next = node2
+	node2.Prev = node1
+
+	return &List{Head: node1, Tail: node2, Len: 2}
 }
 
 func TestNewLinkedList(t *testing.T) {
@@ -20,7 +29,7 @@ func TestNewLinkedList(t *testing.T) {
 }
 
 func TestAddToHead(t *testing.T) {
-	list := setup()
+	list := emptyList()
 	cases := []struct {
 		value int
 	}{
@@ -56,4 +65,16 @@ func TestAddToHead(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestRemoveFromHead(t *testing.T) {
+	list := fullList()
+
+	oldHead := list.Head
+	head := list.RemoveFromHead()
+
+	if oldHead != head {
+		t.Errorf("Expected head to be %v, got %v", oldHead, head)
+	}
+
 }
