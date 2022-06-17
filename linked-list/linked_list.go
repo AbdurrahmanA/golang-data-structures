@@ -1,4 +1,4 @@
-package linked_list
+package main
 
 import "fmt"
 
@@ -76,7 +76,7 @@ func (l *List) Show() {
 	if l.Head == nil {
 		return
 	}
-	fmt.Printf("%+v \n", l)
+
 	node := l.Head
 	for node != nil {
 		fmt.Printf("%p -> %+v \n", node, node)

@@ -1,6 +1,15 @@
-package linked_list
+package main
 
 import "testing"
+
+var cases = []struct {
+	value int
+}{
+	{1},
+	{2},
+	{3},
+	{4},
+}
 
 func emptyList() *List {
 	return &List{}
@@ -30,14 +39,6 @@ func TestNewLinkedList(t *testing.T) {
 
 func TestAddToHead(t *testing.T) {
 	list := emptyList()
-	cases := []struct {
-		value int
-	}{
-		{1},
-		{2},
-		{3},
-		{4},
-	}
 
 	for i, c := range cases {
 		temp := list.Head
@@ -75,6 +76,53 @@ func TestRemoveFromHead(t *testing.T) {
 
 	if oldHead != head {
 		t.Errorf("Expected head to be %v, got %v", oldHead, head)
+	}
+
+	emptyList := emptyList()
+	if emptyList.RemoveFromHead() != nil {
+		t.Errorf("Expected head to be nil, got %v", head)
+	}
+
+}
+
+func TestAddToTail(t *testing.T) {
+	list := emptyList()
+
+	for i, c := range cases {
+		temp := list.Tail
+		list.AddToTail(c.value)
+
+		if list.Len != uint(i)+1 {
+			t.Errorf("Expected list.Len to be %d, got %d", i, list.Len)
+		}
+
+		if i == 0 {
+			if temp != nil {
+				t.Errorf("Expected temp to be nil, got %v", temp)
+			}
+		} else {
+			if list.Tail.Prev != temp {
+				t.Errorf("Expected list.Tail.Prev to be %v, got %v", temp, list.Tail.Prev)
+			}
+		}
+
+	}
+}
+
+func TestRemoveFromTail(t *testing.T) {
+	list := fullList()
+
+	oldTail := list.Tail
+	tail := list.RemoveFromTail()
+
+	if oldTail != tail {
+		t.Errorf("Expected tail to be %v, got %v", oldTail, tail)
+	}
+
+	emptyList := emptyList()
+
+	if emptyList.RemoveFromTail() != nil {
+		t.Errorf("Expected tail to be nil, got %v", tail)
 	}
 
 }
