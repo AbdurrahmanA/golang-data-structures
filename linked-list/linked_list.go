@@ -24,7 +24,6 @@ func (l *List) AddToHead(value int) {
 
 	if l.Len == 0 {
 		l.Head = newNode
-		l.Mid = newNode
 		l.Tail = newNode
 	} else {
 		temp := l.Head
@@ -33,7 +32,11 @@ func (l *List) AddToHead(value int) {
 		temp.Prev = l.Head
 
 		if (l.Len+1)%2 == 0 {
-			l.Mid = l.Mid.Next
+			if l.Mid == nil {
+				l.Mid = l.Head
+			} else {
+				l.Mid = l.Mid.Prev
+			}
 		}
 	}
 	l.Len++
@@ -56,7 +59,6 @@ func (l *List) AddToTail(value int) {
 
 	if l.Len == 0 {
 		l.Head = newNode
-		l.Mid = newNode
 		l.Tail = newNode
 	} else {
 		oldTail := l.Tail
@@ -65,7 +67,11 @@ func (l *List) AddToTail(value int) {
 		l.Tail.Prev = oldTail
 
 		if (l.Len+1)%2 == 0 {
-			l.Mid = l.Mid.Next
+			if l.Mid == nil {
+				l.Mid = l.Tail
+			} else {
+				l.Mid = l.Mid.Next
+			}
 		}
 	}
 	l.Len++
