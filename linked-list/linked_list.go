@@ -11,6 +11,7 @@ type Node struct {
 type List struct {
 	Len  uint
 	Head *Node
+	Mid  *Node
 	Tail *Node
 }
 
@@ -23,12 +24,17 @@ func (l *List) AddToHead(value int) {
 
 	if l.Len == 0 {
 		l.Head = newNode
+		l.Mid = newNode
 		l.Tail = newNode
 	} else {
 		temp := l.Head
 		l.Head = newNode
 		l.Head.Next = temp
 		temp.Prev = l.Head
+
+		if (l.Len+1)%2 == 0 {
+			l.Mid = l.Mid.Next
+		}
 	}
 	l.Len++
 }
@@ -50,12 +56,17 @@ func (l *List) AddToTail(value int) {
 
 	if l.Len == 0 {
 		l.Head = newNode
+		l.Mid = newNode
 		l.Tail = newNode
 	} else {
 		oldTail := l.Tail
 		oldTail.Next = newNode
 		l.Tail = newNode
 		l.Tail.Prev = oldTail
+
+		if (l.Len+1)%2 == 0 {
+			l.Mid = l.Mid.Next
+		}
 	}
 	l.Len++
 }
