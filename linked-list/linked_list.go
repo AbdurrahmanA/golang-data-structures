@@ -89,9 +89,11 @@ func (l *List) Show() {
 	}
 
 	node := l.Head
+	index := 0
 	for node != nil {
-		fmt.Printf("%p -> %+v \n", node, node)
+		fmt.Printf("Index %d -> %p -> %+v \n", index, node, node)
 		node = node.Next
+		index++
 	}
 	fmt.Println()
 }

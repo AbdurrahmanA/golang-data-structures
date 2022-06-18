@@ -31,5 +31,5 @@ func find_middle(list *List) {
 		return
 	}
 
-	fmt.Printf("%+v", list.Mid)
+	fmt.Printf("%+v \n", list.Mid)
 }
